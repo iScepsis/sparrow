@@ -12,5 +12,14 @@
       "useFindAndModify": false,
       "useCreateIndex": true
     }
+  },
+  "sessions": {
+    "secret": "TopSecret",
+    "key": "bbpe",
+    "cookie": {
+      "path": "/",
+      "httpOnly": true,
+      "maxAge": null
+    }
   }
 }

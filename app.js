@@ -1,10 +1,12 @@
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
-//npm startvar config = require('./config');
+var config = require('./config');
 var cookieParser = require('cookie-parser');
 var lessMiddleware = require('less-middleware');
 var logger = require('morgan');
+var mongoose = require('./libs/mongoose');
+
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
@@ -22,6 +24,37 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(lessMiddleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
+
+
+/** Сессии */
+var session = require('express-session');
+var MongoStore = require('connect-mongo')(session);
+var mongoose_store = new MongoStore({mongooseConnection: mongoose.connection});
+
+app.set('trust proxy', 1); // trust first proxy
+app.use(session({
+    secret: config.get('sessions:secret'),
+    key: config.get('sessions:key'),
+    cookie: config.get('sessions:cookie'),
+    saveUninitialized: false,
+    resave: false,
+    store: mongoose_store
+}));﻿
+/*
+app.use(session({
+    secret: config.get('session:secret'),
+    key: config.get('session:key'),
+    resave: false,
+    cookie: config.get('session:cookie'),
+    //Берем настройки из подключения mongoose (берется не само подключение, а только настройки)
+    store: new MongoStore({mongoose_connection: mongoose.connection})
+}));
+*/
+
+/*app.use(function(req, res, next){
+   req.session.numberOfVisits = req.session.numberOfVisits + 1 || 1;
+   res.send("Visits: " + req.session.numberOfVisits);
+});*/
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
