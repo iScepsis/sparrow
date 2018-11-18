@@ -40,21 +40,6 @@ app.use(session({
     resave: false,
     store: mongoose_store
 }));﻿
-/*
-app.use(session({
-    secret: config.get('session:secret'),
-    key: config.get('session:key'),
-    resave: false,
-    cookie: config.get('session:cookie'),
-    //Берем настройки из подключения mongoose (берется не само подключение, а только настройки)
-    store: new MongoStore({mongoose_connection: mongoose.connection})
-}));
-*/
-
-/*app.use(function(req, res, next){
-   req.session.numberOfVisits = req.session.numberOfVisits + 1 || 1;
-   res.send("Visits: " + req.session.numberOfVisits);
-});*/
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
