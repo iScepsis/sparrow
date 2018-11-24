@@ -17,7 +17,7 @@ var app = express();
 
 
 // create application/x-www-form-urlencoded parser
-var urlencodedParser = bodyParser.urlencoded({ extended: false });
+//var urlencodedParser = bodyParser.urlencoded({ extended: false });
 
 // view engine setup
 app.engine('ejs', require('ejs-locals'));
@@ -30,7 +30,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(lessMiddleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
-
+app.use('/node_modules',  express.static(__dirname + '/node_modules'));
+app.use(bodyParser.urlencoded({extended: true}));
 
 /** Сессии */
 var session = require('express-session');

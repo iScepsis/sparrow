@@ -1,17 +1,36 @@
 <% layout('../layouts/main') %>
 
-<form>
+<script src="/node_modules/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="/js/routes/registry.js"></script>
+
+<form id="registryForm" onsubmit="return false;">
     <fieldset>
         <legend>Регистрация</legend>
+
         <div class="form-group">
-            <label for="exampleInputEmail1">Email address</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            <label for="userEmail">Email адрес</label>
+            <input type="email" class="form-control" name="userMail" id="userEmail" aria-describedby="userEmailHelp" placeholder="Enter email" required>
+            <small id="userEmailHelp" class="form-text text-muted">На данный адрес будет выслано подтверждение о регистрации</small>
         </div>
+
         <div class="form-group">
-            <label for="exampleInputPassword1">Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+            <label class="col-form-label" for="userLogin">Логин</label>
+            <input type="text" name="userLogin" class="form-control" placeholder="" id="userLogin" required>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+
+        <div class="form-group">
+            <label for="userPass">Пароль</label>
+            <input type="password" class="form-control" name="userPass" id="userPass" aria-describedby="passwordHelp" placeholder="Пароль" required>
+            <small id="passwordHelp" class="form-text text-muted">Пароль должен содержать не менее 8 символов</small>
+        </div>
+
+        <div class="form-group">
+            <label for="userPassRepeat">Повторите пароль</label>
+            <input type="password" class="form-control" name="userPassRepeat" id="userPassRepeat" placeholder="Подтверждение пароля" required>
+            <small id="passwordHelp" class="form-text text-muted">Пароль должен содержать не менее 8 символов</small>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Готово</button>
     </fieldset>
 </form>
+
