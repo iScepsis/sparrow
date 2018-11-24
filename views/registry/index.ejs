@@ -1,32 +1,33 @@
 <% layout('../layouts/main') %>
 
 <script src="/node_modules/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="/js/jquery_validator_fix.js"></script>
 <script src="/js/routes/registry.js"></script>
 
-<form id="registryForm" onsubmit="return false;">
+<form id="registryForm">
     <fieldset>
         <legend>Регистрация</legend>
 
         <div class="form-group">
             <label for="userEmail">Email адрес</label>
-            <input type="email" class="form-control" name="userMail" id="userEmail" aria-describedby="userEmailHelp" placeholder="Enter email" required>
-            <small id="userEmailHelp" class="form-text text-muted">На данный адрес будет выслано подтверждение о регистрации</small>
+            <input type="email" class="form-control" name="email" id="email" aria-describedby="userEmailHelp" placeholder="Enter email" required>
+            <small id="email" class="form-text text-muted">На данный адрес будет выслано подтверждение о регистрации</small>
         </div>
 
         <div class="form-group">
-            <label class="col-form-label" for="userLogin">Логин</label>
-            <input type="text" name="userLogin" class="form-control" placeholder="" id="userLogin" required>
+            <label class="col-form-label" for="username">Логин</label>
+            <input type="text" name="username" class="form-control" placeholder="" id="username" required>
         </div>
 
         <div class="form-group">
             <label for="userPass">Пароль</label>
-            <input type="password" class="form-control" name="userPass" id="userPass" aria-describedby="passwordHelp" placeholder="Пароль" required>
+            <input type="password" class="form-control" name="password" id="password" aria-describedby="passwordHelp" placeholder="Пароль" required>
             <small id="passwordHelp" class="form-text text-muted">Пароль должен содержать не менее 8 символов</small>
         </div>
 
         <div class="form-group">
             <label for="userPassRepeat">Повторите пароль</label>
-            <input type="password" class="form-control" name="userPassRepeat" id="userPassRepeat" placeholder="Подтверждение пароля" required>
+            <input type="password" class="form-control" name="repeatPassword" id="repeatPassword" placeholder="Подтверждение пароля" required>
             <small id="passwordHelp" class="form-text text-muted">Пароль должен содержать не менее 8 символов</small>
         </div>
 
