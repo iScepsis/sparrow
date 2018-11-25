@@ -36,7 +36,7 @@ $(document).ready(function(){
         $.ajax({
             url: 'registry',
             method: 'post',
-            dataType: json,
+            dataType: 'json',
             data: {
                 email: $('#email').val(),
                 username: $('#username').val(),
