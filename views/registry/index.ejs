@@ -10,7 +10,7 @@
 
         <div class="form-group">
             <label for="userEmail">Email адрес</label>
-            <input type="email" class="form-control" name="email" id="email" aria-describedby="userEmailHelp" placeholder="Enter email" required>
+            <input type="email" class="form-control" name="email" id="email" aria-describedby="userEmailHelp" placeholder="example@mail.com" required>
             <small id="email" class="form-text text-muted">На данный адрес будет выслано подтверждение о регистрации</small>
         </div>
 
@@ -28,10 +28,24 @@
         <div class="form-group">
             <label for="userPassRepeat">Повторите пароль</label>
             <input type="password" class="form-control" name="repeatPassword" id="repeatPassword" placeholder="Подтверждение пароля" required>
-            <small id="passwordHelp" class="form-text text-muted">Пароль должен содержать не менее 8 символов</small>
+            <small id="passwordHelp" class="form-text text-muted">Введите пароль повторно, чтобы избежать эксцессов</small>
         </div>
 
         <button type="submit" class="btn btn-primary">Готово</button>
     </fieldset>
 </form>
 
+<div id="success_msg" style="display: none">
+    <div class="alert alert-success text-center">
+        <p><b>Регистрация успешно завершена!</b></p>
+        <p>Теперь вы можете зайти на сайт под своим логином и паролем.</p>
+    </div>
+</div>
+
+<div id="error_msg" style="display: none">
+    <div class="alert alert-danger text-center">
+        <p><b>Регистрация провалилась(</b></p>
+        <p> Мы послали гонца с садо-мазо наклонностями, чтобы нагнуть программиста, который
+            написал этот говнокод. Приносим свои извинения.</p>
+    </div>
+</div>

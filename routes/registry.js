@@ -48,10 +48,9 @@ router.post('/', function (req, res) {
 
     newUser.save(function (err) {
         if (err) {
-            console.log('все сломано');
-            console.log(err);
+            res.send(JSON.stringify({ result: false, reason: 'create error'}));
         } else {
-            console.log('Все ОК!');
+            res.send(JSON.stringify({ result: true }));
         }
     });
 
