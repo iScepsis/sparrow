@@ -49,7 +49,7 @@ $(document).ready(function(){
     $('#registryForm').on('submit', function(e){
         e.preventDefault();
 
-        if ($(this).validate()) {
+        if ($(this).valid()) {
             $.ajax({
                 url: 'registry',
                 method: 'post',
