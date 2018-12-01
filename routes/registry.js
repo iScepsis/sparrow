@@ -1,4 +1,6 @@
 var express = require('express');
+var async = require('async');
+var util = require('util');
 var router = express.Router();
 var mongoose = require('../libs/mongoose');
 var User = require('../models/user').User;
@@ -10,52 +12,43 @@ router.get('/', function (req, res, next) {
     });
 });
 
-router.post('/', function (req, res) {
+router.post('/', function (req, res, next) {
 
     res.setHeader('Content-Type', 'application/json');
     //res.send(JSON.stringify({ a: 1 }));
 
-    var newUser = new User({
-        email: req.body.email,
-        username: req.body.username,
-        password: req.body.password
-    });
-
-    var result = {result: true};
-
-    //Проверяем на наличие пользователя с таким email
-    User.find({email: newUser.email},
-        function (err, docs) {
-            if (!err) {
-                if (docs) result = { result: false, reason: 'email is duplicate'};
-            } else {
-                result = { result: false, reason: 'error'};
-            }
-        });
-
-    if (result === false) res.send(JSON.stringify(result));
-
-    //Проверяем на наличие пользователя с таким логином
-    User.find({username: newUser.username},
-        function (err, docs) {
-            if (!err) {
-                if (docs) result = { result: false, reason: 'username is duplicate'};
-            } else {
-                result = { result: false, reason: 'error'};
-            }
-        });
-
-
-    newUser.save(function (err) {
-        if (err) {
-            res.send(JSON.stringify({ result: false, reason: 'create error'}));
-        } else {
-            res.send(JSON.stringify({ result: true }));
+    async.series({
+        //check email
+        checkEmail: function (callback) {
+            User.find({email: req.body.email}, function(e, d) {
+                callback(null, !d.length);
+            });
+        },
+        checkUsername: function (callback) {
+            User.find({username: req.body.username}, function(e, d) {
+                callback(null, !d.length);
+            });
         }
-    });
+    }, function(err, results) {
+           // if (err) console.log(err);
+        if (!results.checkEmail) return res.json({
+            result: false, reason: 'Пользователь с таким email уже существует'
+        });
+        if (!results.checkUsername) return res.json({
+            result: false, reason: 'Пользователь с таким логином уже существует'
+        });
 
-    /*res.send('welcome, ' + req.body.username);
-    console.log(req.body.username);*/
+        var newUser = new User({
+            email: req.body.email,
+            username: req.body.username,
+            password: req.body.password
+        });
+
+        newUser.save().then(function(){
+            return res.json({ result: true });
+        }).catch(next);
+
+    });
 });
 
 module.exports = router;

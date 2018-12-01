@@ -23,6 +23,7 @@
     "mongodb": "^3.1.9",
     "mongoose": "^5.3.11",
     "morgan": "~1.9.0",
-    "nconf": "^0.10.0"
+    "nconf": "^0.10.0",
+    "nodemailer": "^4.7.0"
   }
 }
