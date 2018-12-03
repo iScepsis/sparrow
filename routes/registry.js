@@ -13,9 +13,7 @@ router.get('/', function (req, res, next) {
 });
 
 router.post('/', function (req, res, next) {
-
     res.setHeader('Content-Type', 'application/json');
-    //res.send(JSON.stringify({ a: 1 }));
 
     async.series({
         //check email
