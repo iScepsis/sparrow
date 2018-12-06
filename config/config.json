@@ -3,11 +3,6 @@
   "mongoose": {
     "uri": "mongodb://127.0.0.1:27017/sparrow",
     "options": {
-      "server": {
-        "socketOptions": {
-          "keepAlive": 1
-        }
-      },
       "useNewUrlParser": true,
       "useFindAndModify": false,
       "useCreateIndex": true
