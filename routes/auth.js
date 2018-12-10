@@ -14,13 +14,25 @@ router.get('/', function(req, res, next) {
     }
 });
 
-module.exports = router;
 
-router.post('/', passport.authenticate('local', {
+
+/*router.post('/', passport.authenticate('local', {
     successRedirect: 'auth/success',
     failureRedirect: 'auth/',
     failureFlash: true
-}));
+}));*/
+
+router.post('/', function(req, res, next) {
+    passport.authenticate('local', function(err, user, info) {
+        res.setHeader('Content-Type', 'application/json');
+
+        if (err || !user) return res.json({ result: false });
+        req.logIn(user, function(err) {
+            if (err) { return res.json({ result: false }); }
+            return res.json({ result: true });
+        });
+    })(req, res, next);
+});
 
 
 router.get('/success', function(req, res, next) {
@@ -42,3 +54,5 @@ router.get('/logout', function(req, res){
     req.logout();
     res.redirect('/');
 });
+
+module.exports = router;

@@ -1,20 +1,28 @@
 <% layout('../layouts/main') %>
 
+<script src="/js/routes/auth.js"></script>
+
 <div>
-    <form action="/auth" method="post">
-        <div>
-            <label>Username:</label>
-            <input class="form-control" type="text" name="username"/>
+    <form id="authForm">
+        <div class="form-group">
+            <label class="col-form-label" for="username">Логин</label>
+            <input type="text" name="username" class="form-control" placeholder="" id="username" required>
         </div>
-        <div>
-            <label>Password:</label>
-            <input class="form-control" type="password" name="password"/>
+
+        <div class="form-group">
+            <label for="password">Пароль</label>
+            <input type="password" class="form-control" name="password" id="password" placeholder="Пароль" required>
         </div>
+
         <div>
-            <input type="submit" value="Log In"/>
+            <button class="btn btn-primary" type="submit">Войти</button>
         </div>
     </form>
-
 </div>
-<%= error %>
+
+<div id="failure_msg" class="alert alert-danger" style="display: none">
+    Логин или пароль не верны!
+</div>
+
+
 
