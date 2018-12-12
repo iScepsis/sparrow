@@ -17,14 +17,13 @@
         </form>-->
 
         <div class="navbar-text pull-right">
-            <a class="navbar-link" href="/auth">Войти</a>
-
-            <a class="navbar-link" href="/auth/logout">Выйти</a>
-
-
-
-            <%= isAuthenticated %>
-
+            <% if (isAuthenticated) { %>
+                <a class="navbar-link" href="/auth/logout">Выйти</a>
+            <% } else { %>
+                <a class="navbar-link" href="/auth">Войти</a>
+                <span>&nbsp;</span>
+                <a class="navbar-link" href="/registry">Регистрация</a>
+            <% } %>
         </div>
     </div>
 </nav>
