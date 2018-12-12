@@ -9,6 +9,7 @@ var logger = require('morgan');
 var mongoose = require('./libs/mongoose');
 var passport = require('./libs/passport');
 var flash = require('connect-flash');
+var appMiddleware = require('./libs/appMiddleware');
 
 /** Сессии */
 var session = require('express-session');
@@ -44,16 +45,17 @@ app.use(session({
     resave: false,
     store: mongoose_store
 }));
-﻿app.use(passport.initialize());
+
+app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
+app.use(appMiddleware);
 
 var indexRouter = require('./routes/index');
 var authRouter = require('./routes/auth');
 var usersRouter = require('./routes/users');
 var registryRouter = require('./routes/registry');
 var usersListRouter = require('./routes/users-list');
-
 
 app.use('/', indexRouter);
 app.use('/auth', authRouter);
@@ -65,6 +67,7 @@ app.use('/users-list', usersListRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
+  console.log('I here!');
   next(createError(404));
 });
 
