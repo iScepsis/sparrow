@@ -53,12 +53,14 @@ app.use(appMiddleware);
 
 var indexRouter = require('./routes/index');
 var authRouter = require('./routes/auth');
+var chatRouter = require('./routes/chat');
 var usersRouter = require('./routes/users');
 var registryRouter = require('./routes/registry');
 var usersListRouter = require('./routes/users-list');
 
 app.use('/', indexRouter);
 app.use('/auth', authRouter);
+app.use('/chat', chatRouter);
 app.use('/users', usersRouter);
 app.use('/registry', registryRouter);
 app.use('/users-list', usersListRouter);
