@@ -3,9 +3,13 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    res.render('chat/index', {
-        title: 'Чат',
-    });
+    if (req.isAuthenticated()) {
+        res.render('chat/index', {
+            title: 'Чат',
+        });
+    } else {
+        res.status(403).render();
+    }
 });
 
 module.exports = router;

@@ -7,9 +7,14 @@ var User = require('../models/user').User;
 
 /* GET users listing. */
 router.get('/', function (req, res, next) {
-    res.render('registry/index', {
-        title: 'Registration',
-    });
+    if (req.isAuthenticated()) {
+        res.redirect('/');
+    } else {
+        res.render('registry/index', {
+            title: 'Регистрация',
+        });
+    }
+
 });
 
 router.post('/', function (req, res, next) {
