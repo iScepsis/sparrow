@@ -12,4 +12,8 @@ router.get('/', function(req, res, next) {
   });
 });
 
+router.get('/403', function(req, res, next) {
+    res.render('403');
+});
+
 module.exports = router;

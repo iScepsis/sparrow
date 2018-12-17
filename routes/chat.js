@@ -8,7 +8,7 @@ router.get('/', function(req, res, next) {
             title: 'Чат',
         });
     } else {
-        res.status(403).render();
+        res.redirect('/403');
     }
 });
 
