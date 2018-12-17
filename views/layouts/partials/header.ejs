@@ -23,7 +23,7 @@
 
         <div class="navbar-text pull-right">
             <% if (isAuthenticated) { %>
-                <a class="navbar-link" href="/auth/logout">Выйти</a>
+                <a class="navbar-link" href="/auth/logout"> Выйти (<%- user.username%>)</a>
             <% } else { %>
                 <a class="navbar-link" href="/auth">Войти</a>
                 <span>&nbsp;</span>
