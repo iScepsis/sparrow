@@ -2,22 +2,68 @@
 
 <% block('title', 'Чат'); %><br>
 
+<script>
+    var user = {
+        username: '<%= user.username %>',
+        id: '<%= user.id %>'
+    };
+
+</script>
+
 <script src="/node_modules/socket.io-client/dist/socket.io.js"></script>
 <script>
     $(function () {
         var socket = io();
+        socket.emit('set-username', user.username);
+
         $('form').submit(function(){
-            socket.emit('chat message', $('#m').val());
-            $('#m').val('');
+            let inputArea = $(this).find('.chat-textarea');
+            socket.emit('chat message', $(inputArea).val());
+            $(inputArea).val('');
             return false;
         });
         socket.on('chat message', function(msg){
-            $('#messages').append($('<li>').text(msg));
+            $('.msg-area').append(msg);
         });
     });
 </script>
 
-<ul id="messages"></ul>
-<form action="">
-    <input id="m" autocomplete="off" /><button>Send</button>
-</form>
+<div class="row">
+    <div class="col-xs-4 col-md-4 col-sm-4">
+        <!-- Rooms -->
+        <div class="rooms">
+            <div>
+                <b>
+                    Комнаты:
+                </b>
+            </div>
+            <div>
+
+            </div>
+        </div>
+        <!-- / Rooms -->
+
+    </div>
+    <div class="col-xs-8 col-md-8 col-sm-8">
+        <!-- Message Area -->
+        <div class="msg-area">
+
+        </div>
+        <!-- / Message Area -->
+        <!-- Input Area -->
+        <div>
+            <% if (isAuthenticated) { %>
+                <form action="">
+                    <textarea class="chat-textarea">
+
+                    </textarea>
+                    <hr>
+                    <button class="btn btn-success" type="submit">
+                        Отправить <span class="glyphicon glyphicon-send"></span>
+                    </button>
+                </form>
+            <% } %>
+        </div>
+        <!-- / Input Area -->
+    </div>
+</div>
