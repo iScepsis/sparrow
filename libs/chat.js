@@ -9,7 +9,7 @@ module.exports = function(server) {
 
         socket.on('chat message', function(msg){
             io.emit('chat message',
-                '<div class="msg-wrap" data-author="' + socket.username + '">' +
+                '<div class="single-msg-wrap" data-author="' + socket.username + '">' +
                     '<b class="msg-username">' + socket.username + '</b>: <span class="msg-content">' + msg + '</span>' +
                 '</div>'
             );

@@ -23,7 +23,7 @@
             return false;
         });
         socket.on('chat message', function(msg){
-            $('.msg-area').append(msg);
+            $('.msg-list').append(msg);
         });
     });
 </script>
@@ -44,19 +44,17 @@
         <!-- / Rooms -->
 
     </div>
-    <div class="col-xs-8 col-md-8 col-sm-8">
+    <div class="msg-wrap col-xs-8 col-md-8 col-sm-8">
         <!-- Message Area -->
         <div class="msg-area">
-
+            <div class="msg-list"></div>
         </div>
         <!-- / Message Area -->
         <!-- Input Area -->
         <div>
             <% if (isAuthenticated) { %>
                 <form action="">
-                    <textarea class="chat-textarea">
-
-                    </textarea>
+                    <textarea class="chat-textarea"></textarea>
                     <hr>
                     <button class="btn btn-success" type="submit">
                         Отправить <span class="glyphicon glyphicon-send"></span>
