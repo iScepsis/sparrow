@@ -1,9 +1,9 @@
-var crypto = require('crypto');
+let crypto = require('crypto');
 
-var mongoose = require('../libs/mongoose'),
+let mongoose = require('../libs/mongoose'),
     Schema = mongoose.Schema;
 
-var schema = new Schema({
+let schema = new Schema({
     email: {
         type: String,
         unique: true,
