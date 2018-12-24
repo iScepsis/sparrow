@@ -1,7 +1,7 @@
 {
   "port": 3000,
   "mongoose": {
-    "uri": "mongodb://mongo:27017/sparrow",
+    "uri": "mongodb://127.0.0.1:27017/sparrow",
     "options": {
       "useNewUrlParser": true,
       "useFindAndModify": false,

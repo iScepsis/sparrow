@@ -20,7 +20,12 @@ module.exports = function(server) {
                 msg: msg
             });
 
-            newMsg.save();
+            newMsg.save().then(function(msg) {
+                console.log('msg saved');
+            }).catch(function(error){
+                console.log('Error during save msg:');
+                console.log('error');
+            });
 
             io.emit('chat message',
                 '<div class="single-msg-wrap" data-author="' + socket.username + '">' +

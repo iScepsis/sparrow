@@ -17,6 +17,10 @@ let schema = new Schema({
     msg: {
         type: String,
         required: true
+    },
+    created: {
+        type: Date,
+        default: Date.now
     }
 });
 

@@ -47,7 +47,13 @@
     <div class="msg-wrap col-xs-8 col-md-8 col-sm-8">
         <!-- Message Area -->
         <div class="msg-area">
-            <div class="msg-list"></div>
+            <div class="msg-list">
+                <% messages.forEach(function(msg) { %>
+                    <div class="single-msg-wrap" data-author="<%= msg.user %>">
+                        <b class="msg-username"><%= msg.user %></b>: <span class="msg-content"><%= msg.msg %></span>
+                    </div>
+                <% }); %>
+            </div>
         </div>
         <!-- / Message Area -->
         <!-- Input Area -->
