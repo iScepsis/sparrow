@@ -2,20 +2,12 @@ let mongoose = require('../libs/mongoose'),
     Schema = mongoose.Schema;
 
 let schema = new Schema({
-    namespace: {
+    name: {
         type: String,
         required: true
     },
-    room: {
-        type: String,
-        required: true
-    },
-    user: {
-        type: String,
-        required: true
-    },
-    msg: {
-        type: String,
+    users: {
+        type: Array,
         required: true
     },
     created: {
@@ -24,4 +16,4 @@ let schema = new Schema({
     }
 });
 
-exports.Chat = mongoose.model('Chat', schema);
+exports.Room = mongoose.model('Room', schema);

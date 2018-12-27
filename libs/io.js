@@ -1,4 +1,4 @@
-let chatModel = require('../models/chat').Chat;
+let Message = require('../models/message').Message;
 
 module.exports = function(server) {
     var io = require('socket.io')(server);
@@ -13,7 +13,7 @@ module.exports = function(server) {
          * Новое сообщение
          */
         socket.on('chat message', function(msg){
-            let newMsg = new chatModel({
+            let newMsg = new Message({
                 namespace: '\\',
                 room: 'main',
                 user: socket.username,

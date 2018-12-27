@@ -3,11 +3,12 @@ $(function () {
     socket.emit('set-username', user.username);
 
     $('form').submit(function(){
-        socket.emit('chat message', $('#m').val());
-        $('#m').val('');
+        let inputArea = $(this).find('.chat-textarea');
+        socket.emit('chat message', $(inputArea).val());
+        $(inputArea).val('');
         return false;
     });
     socket.on('chat message', function(msg){
-        $('#chat').append(msg);
+        $('.msg-list').append(msg);
     });
 });

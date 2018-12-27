@@ -11,22 +11,7 @@
 </script>
 
 <script src="/node_modules/socket.io-client/dist/socket.io.js"></script>
-<script>
-    $(function () {
-        var socket = io();
-        socket.emit('set-username', user.username);
-
-        $('form').submit(function(){
-            let inputArea = $(this).find('.chat-textarea');
-            socket.emit('chat message', $(inputArea).val());
-            $(inputArea).val('');
-            return false;
-        });
-        socket.on('chat message', function(msg){
-            $('.msg-list').append(msg);
-        });
-    });
-</script>
+<script src="/js/modules/chat.js"></script>
 
 <div class="row">
     <div class="col-xs-4 col-md-4 col-sm-4">

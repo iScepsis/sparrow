@@ -1,14 +1,14 @@
 let express = require('express');
 let router = express.Router();
 let async = require('async');
-let Chat = require('../models/chat').Chat;
+let Message = require('../models/message').Message;
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
     if (req.isAuthenticated()) {
         async.waterfall([
                 function(callback) {
-                    Chat.find(null, function(err, messages){
+                    Message.find(null, function(err, messages){
                         callback(err, messages);
                     });
                 }
@@ -24,8 +24,6 @@ router.get('/', function(req, res, next) {
                 }
             }
         );
-
-
     } else {
         res.redirect('/403');
     }
