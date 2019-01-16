@@ -1,9 +1,14 @@
 let Message = require('../models/message').Message;
+var config = require('../config');
 
 module.exports = function(server) {
     var io = require('socket.io')(server);
 
     io.on('connection', function(socket){
+
+        socket.currentRoom = config.get('chat:defaultRoom');
+        socket.join(config.get('chat:defaultRoom'));
+
         socket.on('set-username', function(username) {
             socket.username = username;
             console.log(socket.username);
@@ -32,6 +37,10 @@ module.exports = function(server) {
                     '<b class="msg-username">' + socket.username + '</b>: <span class="msg-content">' + msg + '</span>' +
                 '</div>'
             );
+        });
+
+        socket.on('join group', function(groupName){
+
         });
 
 

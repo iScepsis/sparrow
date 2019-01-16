@@ -16,5 +16,8 @@
       "httpOnly": true,
       "maxAge": null
     }
+  },
+  "chat": {
+    "defaultRoom": "main"
   }
 }
