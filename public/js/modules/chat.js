@@ -11,4 +11,13 @@ $(function () {
     socket.on('chat message', function(msg){
         $('.msg-list').append(msg);
     });
+
+    socket.on('typing', function(username) {
+        console.log(username + ' печатает');
+    });
+
+    $('.chat-textarea').on('keyup', function(){
+        socket.emit('typing');
+    });
+
 });

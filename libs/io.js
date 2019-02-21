@@ -40,9 +40,14 @@ module.exports = function(server) {
         });
 
         socket.on('join group', function(groupName){
-
+            //TODO
         });
 
+        socket.on('typing', function(){
+            socket.broadcast.emit('typing', {
+                username: socket.username
+            });
+        });
 
     });
 
