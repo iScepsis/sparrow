@@ -7,8 +7,7 @@ let schema = new Schema({
         required: true
     },
     users: {
-        type: Array,
-        required: true
+        type: Array
     },
     created: {
         type: Date,

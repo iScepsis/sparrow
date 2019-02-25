@@ -1,5 +1,11 @@
+var typingUsers = [];
+var typingLength = 0;
+
 $(function () {
     var socket = io();
+    var info_area = $('.info-area');
+
+
     socket.emit('set-username', user.username);
 
     $('form').submit(function(){
@@ -14,6 +20,7 @@ $(function () {
 
     socket.on('typing', function(username) {
         console.log(username + ' печатает');
+
     });
 
     $('.chat-textarea').on('keyup', function(){
@@ -21,3 +28,8 @@ $(function () {
     });
 
 });
+
+function addTypingUsers(username){
+
+}
+
