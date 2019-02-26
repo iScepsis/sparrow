@@ -56,8 +56,12 @@ module.exports = function(server) {
                 if (room) {
                     io.emit('room exist');
                 } else {
+                    let participants = [];
+                    participants.push(socket.username);
                     let newRoom = new Room({
-                        name: roomData.roomName
+                        name: roomData.roomName,
+                        author: socket.username,
+                        participants: participants
                     });
                     newRoom.save().then(function(room){
                         io.emit('room created');

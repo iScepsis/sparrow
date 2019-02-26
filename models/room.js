@@ -6,8 +6,13 @@ let schema = new Schema({
         type: String,
         required: true
     },
-    users: {
-        type: Array
+    participants: [
+        {type: String, ref: 'Ingredient'}
+    ],
+    author: {
+        type: String,
+        required: true,
+        ref: 'User'
     },
     created: {
         type: Date,

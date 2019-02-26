@@ -12,7 +12,8 @@ let schema = new Schema({
     },
     user: {
         type: String,
-        required: true
+        required: true,
+        ref: 'User'
     },
     msg: {
         type: String,
