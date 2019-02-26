@@ -4,13 +4,21 @@
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Создание комнаты</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                <p>Some text in the modal.</p>
+                <form id="roomCreateForm">
+                    <div class="form-group">
+                        <label for="roomName">Название комнаты</label>
+                        <input type="text" class="form-control" id="roomName" name="roomName" aria-describedby="roomNameHelp" placeholder="Моя крутая комната">
+                       <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>-->
+                    </div>
+                </form>
+                <div id="roomCreateInfo"></div>
             </div>
             <div class="modal-footer">
+                <button type="button" class="btn btn-primary createRoomBtn">Создать</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
             </div>
         </div>

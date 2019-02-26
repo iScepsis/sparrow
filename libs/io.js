@@ -51,23 +51,21 @@ module.exports = function(server) {
         /**
          * Создание комнаты
          */
-        socket.on('create room', function(roomName){
-            Room.findOne({name: roomName}, function (err, room) {
+        socket.on('create room', function(roomData){
+            Room.findOne({name: roomData.roomName}, function (err, room) {
                 if (room) {
                     io.emit('room exist');
                 } else {
                     let newRoom = new Room({
-                        name: roomName
+                        name: roomData.roomName
                     });
                     newRoom.save().then(function(room){
                         io.emit('room created');
                     }).catch(function(error){
-                        io.emit('room create error');
+                        io.emit('room create error', error);
                     });
                 }
             });
-
-
         });
 
         /**
