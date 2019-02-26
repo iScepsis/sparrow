@@ -71,6 +71,10 @@ $(function () {
             .show();
     });
 
+    socket.on('join room error', function(error){
+        showModal('Ошибка при присоединении к комнате: ' + error, 'Ошибка', 'danger');
+    });
+
     $('.createRoomBtn').on('click', function(){
         var form = $('#roomCreateForm');
 

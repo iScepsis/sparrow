@@ -45,7 +45,36 @@ module.exports = function(server) {
          * Присоединяемся к комнате
          */
         socket.on('join room', function(roomName){
-            socket.join(roomName);
+            async.waterfall([
+                function(callback) {
+                    socket.leave(this.currentRoom);
+                    Room.findOne({name: this.currentRoom}, function (err, room) {
+                        for (let i in room.participants) {
+                            if (room.participants[i] == socket.username) room.participants.splice(i, 1);
+                        }
+                        room.save(function(err) {
+                            callback(err, null);
+                        });
+                    });
+
+                },
+                function(callback) {
+                    socket.join(roomName);
+                    this.currentRoom = roomName;
+                    Room.findOne({name: this.currentRoom}, function (err, room) {
+                        room.participants.push(socket.username);
+                        room.save(function(err) {
+                            callback(err, null)
+                        });
+                    });
+                }
+            ], function (err, result) {
+                if (err) {
+                    socket.emit('join room error', err);
+                } else {
+                    socket.emit('room joined');
+                }
+            });
         });
 
         /**

@@ -19,10 +19,17 @@
     <div class="col-xs-4 col-md-4 col-sm-4">
         <!-- Rooms -->
         <div class="rooms">
-            <div>
-                <b>
-                    Комнаты:
-                </b>
+            <div class="rooms-header">
+                <b><u>Комнаты: </u></b>
+            </div>
+            <div class="rooms-body">
+                <ul class="nav nav-pills">
+                    <% rooms.forEach(function(room) { %>
+                        <li class="nav-item" data-author="<%= room.author %>">
+                            <a class="nav-link" href="#"><%= room.name %></a>
+                        </li>
+                    <% }); %>
+                </ul>
             </div>
             <div>
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createRoom">
@@ -64,6 +71,5 @@
         <!-- / Input Area -->
     </div>
 </div>
-
 
 <%-partial('_room_modal')%>
