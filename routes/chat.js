@@ -25,8 +25,8 @@ router.get('/', function(req, res, next) {
                 res.render('chat/index', {
                     title: 'Чат',
                     rooms: results.rooms,
-                    messages: results.messages
-                });
+                    messages: results.messages,
+               });
             }
         });
     } else {

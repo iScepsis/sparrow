@@ -5,7 +5,7 @@
  */
 
 var app = require('../app');
-var config = require('../config')
+var config = require('../config');
 var debug = require('debug')('sparrow:server');
 var http = require('http');
 
@@ -32,10 +32,10 @@ server.on('listening', onListening);
 
 var io = require('../libs/io')(server);
 // Make io accessible to our router
-app.use(function(req,res,next){
+/*app.use(function(req,res,next){
     req.io = io;
     next();
-});
+});*/
 
 /**
  * Normalize a port into a number, string, or false.

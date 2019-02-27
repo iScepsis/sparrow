@@ -7,7 +7,7 @@ let schema = new Schema({
         required: true
     },
     participants: [
-        {type: String, ref: 'Ingredient'}
+        {type: String, ref: 'User'}
     ],
     author: {
         type: String,
@@ -17,6 +17,10 @@ let schema = new Schema({
     created: {
         type: Date,
         default: Date.now
+    },
+    is_active: {
+        type: Boolean,
+        default: true
     }
 });
 

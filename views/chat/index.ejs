@@ -23,10 +23,12 @@
                 <b><u>Комнаты: </u></b>
             </div>
             <div class="rooms-body">
-                <ul class="nav nav-pills">
+                <ul class="nav nav-pills flex-column">
                     <% rooms.forEach(function(room) { %>
                         <li class="nav-item" data-author="<%= room.author %>">
-                            <a class="nav-link" href="#"><%= room.name %></a>
+                            <a class="room-pill nav-link <%if (room.name == 'main') { %>active<% } %>" href="#"  data-toggle="tab">
+                                <%= room.name %>
+                            </a>
                         </li>
                     <% }); %>
                 </ul>

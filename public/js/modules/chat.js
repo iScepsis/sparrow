@@ -29,6 +29,10 @@ $(function () {
         $('#roomCreateInfo').hide();
     });
 
+    $('.room-pill').on('click', function(){
+        alert('dddd');
+    });
+
     socket.emit('set-username', user.username);
 
     $('form').submit(function(){
