@@ -1,28 +1,48 @@
 var typingUsers = [];
 var typingLength = 0;
+var roomCreateValidator = {
+    rules: {
+        roomName: {
+            required: true,
+            minlength: 3,
+            maxlength: 100
+        },
+
+    },
+    messages: {
+        roomName: {
+            required: "введите название комнаты",
+            minlength: $.validator.format("Название комнаты должно содержать минимум {0} символов!"),
+            maxlength: $.validator.format("Название комнаты должно содержать максимум {0} символов!"),
+        }
+    }
+};
 
 $(function () {
 
     var socket = io();
+
+    socket.emit('set-username', user.username);
+
+    /**
+     * Присоединяемся к комнатам, в которых участвует пользователь
+     */
+    for (var i in user.participateInRooms) {
+        socket.emit('join room', user.participateInRooms[i]);
+    }
+
+    /**
+     * Кликаем по первой комнате, дабы загрузить содержимое чата для него
+     */
+    $('.room-pill').eq(0).click();
+
     var info_area = $('.info-area');
 
-    $('#roomCreateForm').validate({
-        rules: {
-            roomName: {
-                required: true,
-                minlength: 3,
-                maxlength: 100
-            },
 
-        },
-        messages: {
-            roomName: {
-                required: "введите название комнаты",
-                minlength: $.validator.format("Название комнаты должно содержать минимум {0} символов!"),
-                maxlength: $.validator.format("Название комнаты должно содержать максимум {0} символов!"),
-            }
-        }
-    });
+    /**
+     * Валидатор для формы создания комнаты
+     */
+    $('#roomCreateForm').validate(roomCreateValidator);
 
     $('#createRoom').on('hidden.bs.modal', function () {
         $(this).find('.createRoomBtn').prop('disabled', false);
@@ -30,10 +50,8 @@ $(function () {
     });
 
     $('.room-pill').on('click', function(){
-        alert('dddd');
+        console.log('dddd');
     });
-
-    socket.emit('set-username', user.username);
 
     $('form').submit(function(){
         let inputArea = $(this).find('.chat-textarea');
@@ -41,6 +59,7 @@ $(function () {
         $(inputArea).val('');
         return false;
     });
+
     socket.on('chat message', function(msg){
         $('.msg-list').append(msg);
     });

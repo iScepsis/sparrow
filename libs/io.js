@@ -7,12 +7,14 @@ module.exports = function(server) {
 
     io.on('connection', function(socket){
 
-        socket.currentRoom = config.get('chat:defaultRoom');
+        if (socket.currentRoom === null || socket.currentRoom === undefined) {
+            socket.currentRoom = config.get('chat:defaultRoom');
+        }
+
         socket.join(config.get('chat:defaultRoom'));
 
         socket.on('set-username', function(username) {
             socket.username = username;
-            console.log(socket.username);
         });
 
         /**
@@ -28,10 +30,10 @@ module.exports = function(server) {
 
             newMsg.save().then(function(msg) {
                 console.log('msg saved');
-            }).catch(function(error){
+            }).catch(function(err){
                // console.log('Error during save msg:');
                // console.log('error');
-                next(new Error("Can't create message: " + error));
+                next(new Error("Can't create message: " + err));
             });
 
             io.emit('chat message',
@@ -46,7 +48,7 @@ module.exports = function(server) {
          */
         socket.on('join room', function(roomName){
             async.waterfall([
-                function(callback) {
+                /*function(callback) {
                     socket.leave(this.currentRoom);
                     Room.findOne({name: this.currentRoom}, function (err, room) {
                         for (let i in room.participants) {
@@ -57,7 +59,7 @@ module.exports = function(server) {
                         });
                     });
 
-                },
+                },*/
                 function(callback) {
                     socket.join(roomName);
                     this.currentRoom = roomName;

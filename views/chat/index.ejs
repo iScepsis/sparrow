@@ -3,11 +3,8 @@
 <% block('title', 'Чат'); %><br>
 
 <script>
-    var user = {
-        username: '<%= user.username %>',
-        id: '<%= user.id %>'
-    };
-
+    var user = <%-JSON.stringify(user)%>
+    var rooms = <%-JSON.stringify(rooms)%>
 </script>
 
 <script src="/node_modules/jquery-validation/dist/jquery.validate.min.js"></script>
@@ -26,7 +23,7 @@
                 <ul class="nav nav-pills flex-column">
                     <% rooms.forEach(function(room) { %>
                         <li class="nav-item" data-author="<%= room.author %>">
-                            <a class="room-pill nav-link <%if (room.name == 'main') { %>active<% } %>" href="#"  data-toggle="tab">
+                            <a class="room-pill nav-link" href="#"  data-toggle="tab">
                                 <%= room.name %>
                             </a>
                         </li>
@@ -46,11 +43,7 @@
         <!-- Message Area -->
         <div class="msg-area">
             <div class="msg-list">
-                <% messages.forEach(function(msg) { %>
-                    <div class="single-msg-wrap" data-author="<%= msg.user %>">
-                        <b class="msg-username"><%= msg.user %></b>: <span class="msg-content"><%= msg.msg %></span>
-                    </div>
-                <% }); %>
+
             </div>
         </div>
         <!-- Message Area -->

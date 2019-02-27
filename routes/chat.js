@@ -8,24 +8,27 @@ let Room = require('../models/room').Room;
 router.get('/', function(req, res, next) {
     if (req.isAuthenticated()) {
         async.series({
-            messages: function (callback) {
+            /*messages: function (callback) {
                 Message.find(null, function (err, messages) {
                     callback(err, messages);
                 });
-            },
+            },*/
             rooms: function(callback){
-                Room.find(null, function (err, rooms) {
-                    callback(err, rooms);
-                });
+                Room.find()
+                    .where('name').in(req.user.participateInRooms)
+                    .where('is_active').equals(true)
+                    .exec(function (err, rooms) {
+                        callback(err, rooms);
+                    });
             }
         }, function(err, results) {
             if (err) {
-                console.log(err);
+                next(new Error('При запуске'));
             } else {
                 res.render('chat/index', {
                     title: 'Чат',
                     rooms: results.rooms,
-                    messages: results.messages,
+                    //  messages: results.messages
                });
             }
         });
