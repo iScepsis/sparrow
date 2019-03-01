@@ -37,4 +37,25 @@ router.get('/', function(req, res, next) {
     }
 });
 
+/**
+ * Получаем сообщения
+ */
+router.post('/load-messages', function(req, res, next) {
+    if (req.isAuthenticated()) {
+       Message.find()
+           .where('room', req.body.room)
+           .sort({date: 'asc'})
+           .limit(50)
+           .exec(function (err, messages) {
+               if (err) {
+                   return res.json({result: false, reason: err});
+               } else {
+                   return res.json({result: true, messages: messages});
+               }
+           });
+    } else {
+        res.status(403).send('You must be authenticated!');
+    }
+});
+
 module.exports = router;

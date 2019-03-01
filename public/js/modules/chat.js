@@ -31,13 +31,38 @@ $(function () {
         socket.emit('join room', user.participateInRooms[i]);
     }
 
-    /**
-     * Кликаем по первой комнате, дабы загрузить содержимое чата для него
-     */
-    $('.room-pill').eq(0).click();
-
     var info_area = $('.info-area');
 
+    /**
+     * Клик по пункту из списка комнат. Загружаем сообщения для данной комнаты
+     */
+    $('.room-pill').on('click', function(){
+        $('.msg-list').html('');
+        $.ajax({
+            url: 'chat/load-messages',
+            method: 'post',
+            dataType: 'json',
+            data: {
+                room: $(this).data('room')
+            },
+            success: function (res) {
+                if (res.result !== undefined && res.result) {
+                    var html = '';
+                    for (var i in res.messages) {
+                        html += '<div class="single-msg-wrap" data-author="' + res.messages[i]['user'] + '">' +
+                            '<b class="msg-username">' + res.messages[i]['user'] + '</b>: <span class="msg-content">' + res.messages[i]['msg'] + '</span>' +
+                            '</div>'
+                    }
+                    $('.msg-list').prepend(html);
+                }
+            }
+        });
+    });
+
+    /**
+     * Кликаем по первой комнате, дабы загрузить содержимое чата для нее
+     */
+    $('.room-pill').eq(0).click();
 
     /**
      * Валидатор для формы создания комнаты
@@ -49,11 +74,9 @@ $(function () {
         $('#roomCreateInfo').hide();
     });
 
-    $('.room-pill').on('click', function(){
-        console.log('dddd');
-    });
 
-    $('form').submit(function(){
+
+    $('#input-area').submit(function(){
         let inputArea = $(this).find('.chat-textarea');
         socket.emit('chat message', $(inputArea).val());
         $(inputArea).val('');
