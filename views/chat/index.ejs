@@ -30,6 +30,7 @@
                     <% }); %>
                 </ul>
             </div>
+            <hr>
             <div>
                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createRoom">
                     Создать комнату
@@ -67,4 +68,4 @@
     </div>
 </div>
 
-<%-partial('_room_modal')%>
+<%- partial('_room_modal', {usersList: usersList})%>

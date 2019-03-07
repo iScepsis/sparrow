@@ -3,6 +3,7 @@ let router = express.Router();
 let async = require('async');
 let Message = require('../models/message').Message;
 let Room = require('../models/room').Room;
+let User = require('../models/user').User;
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -20,14 +21,24 @@ router.get('/', function(req, res, next) {
                     .exec(function (err, rooms) {
                         callback(err, rooms);
                     });
+            },
+            usersList: function(callback){
+                User.find()
+                    .where('username').ne(req.user.username)
+                    .sort({username: 'asc'})
+                    .limit(100)
+                    .exec(function (err, users) {
+                        callback(err, users);
+                    });
             }
         }, function(err, results) {
             if (err) {
-                next(new Error('При запуске'));
+                next(new Error('Ошиюка при запуске'));
             } else {
                 res.render('chat/index', {
                     title: 'Чат',
                     rooms: results.rooms,
+                    usersList: results.usersList,
                     //  messages: results.messages
                });
             }

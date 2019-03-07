@@ -121,12 +121,20 @@ $(function () {
         showModal('Ошибка при присоединении к комнате: ' + error, 'Ошибка', 'danger');
     });
 
+    /**
+     * Сабмит формы создания комнаты
+     */
     $('.createRoomBtn').on('click', function(){
         var form = $('#roomCreateForm');
 
         if (form.valid()) {
+            participants = [];
+            $('#roomParticipants').find('option:selected').each(function() {
+                participants.push($(this).val());
+            });
             socket.emit('create room', {
-                roomName: form.find('[name="roomName"]').val()
+                roomName: form.find('[name="roomName"]').val(),
+                participants: participants
             });
         }
     });

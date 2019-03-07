@@ -87,8 +87,9 @@ module.exports = function(server) {
                 if (room) {
                     io.emit('room exist');
                 } else {
-                    let participants = [];
+                    let participants = roomData.participants || [];
                     participants.push(socket.username);
+                    //TODO: реализовать добавление к комнатам для юзеров
                     let newRoom = new Room({
                         name: roomData.roomName,
                         author: socket.username,
