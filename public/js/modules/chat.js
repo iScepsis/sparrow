@@ -38,6 +38,7 @@ $(function () {
      */
     $('.room-pill').on('click', function(){
         $('.msg-list').html('');
+        socket.emit('set current room', $(this).data('room'));
         $.ajax({
             url: 'chat/load-messages',
             method: 'post',
@@ -102,13 +103,18 @@ $(function () {
             .show();
     });
 
-    socket.on('room created', function() {
+    socket.on('room created', function(room) {
         $('#roomCreateInfo')
             .html(getAlert('Комната успешно создана', 'success'))
             .show();
         setTimeout(function(){
             $('#createRoom').modal('hide');
         }, 1500);
+        $('.room-items').append('<li class="nav-item" data-author="' + room.author + '">\n' +
+            '                            <a class="room-pill nav-link" href="#" data-room="' + room.name + '"  data-toggle="tab">\n' +
+                                             room.name  +
+            '                            </a>\n' +
+            '                        </li>');
     });
 
     socket.on('room create error', function(error){
