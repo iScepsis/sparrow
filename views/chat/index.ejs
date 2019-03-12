@@ -1,0 +1,71 @@
+<% layout('../layouts/main') %>
+
+<% block('title', 'Чат'); %><br>
+
+<script>
+    var user = <%-JSON.stringify(user)%>
+    var rooms = <%-JSON.stringify(rooms)%>
+</script>
+
+<script src="/node_modules/jquery-validation/dist/jquery.validate.min.js"></script>
+<script src="/js/jquery_validator_fix.js"></script>
+<script src="/node_modules/socket.io-client/dist/socket.io.js"></script>
+<script src="/js/modules/chat.js"></script>
+
+<div class="row">
+    <div class="col-xs-4 col-md-4 col-sm-4">
+        <!-- Rooms -->
+        <div class="rooms">
+            <div class="rooms-header">
+                <b><u>Комнаты: </u></b>
+            </div>
+            <div class="rooms-body">
+                <ul class="room-items nav nav-pills flex-column">
+                    <% rooms.forEach(function(room) { %>
+                        <li class="nav-item" data-author="<%= room.author %>">
+                            <a class="room-pill nav-link" href="#" data-room="<%= room.name %>"  data-toggle="tab">
+                                <%= room.name %>
+                            </a>
+                        </li>
+                    <% }); %>
+                </ul>
+            </div>
+            <hr>
+            <div>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createRoom">
+                    Создать комнату
+                </button>
+            </div>
+        </div>
+        <!-- / Rooms -->
+
+    </div>
+    <div class="msg-wrap col-xs-8 col-md-8 col-sm-8">
+        <!-- Message Area -->
+        <div class="msg-area">
+            <div class="msg-list">
+
+            </div>
+        </div>
+        <!-- Message Area -->
+        <!-- Info Area -->
+        <div class="info-area">
+
+        </div>
+        <!-- Input Area -->
+        <div>
+            <% if (isAuthenticated) { %>
+                <form id="input-area" action="">
+                    <textarea class="chat-textarea"></textarea>
+                    <hr>
+                    <button class="btn btn-success" type="submit">
+                        Отправить <span class="glyphicon glyphicon-send"></span>
+                    </button>
+                </form>
+            <% } %>
+        </div>
+        <!-- / Input Area -->
+    </div>
+</div>
+
+<%- partial('_room_modal', {usersList: usersList})%>

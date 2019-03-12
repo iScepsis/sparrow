@@ -2,12 +2,13 @@
 <head>
     <title><%=blocks.title%></title>
 
-    <link rel="stylesheet" href="/vendor/bower_components/bootstrap/dist/css/bootstrap.css"/>
+    <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css"/>
     <link rel="stylesheet" href="/stylesheets/cerulean.min.css"/>
     <link rel="stylesheet" href="/stylesheets/style.css"/>
 
-    <script src="/vendor/bower_components/jquery/dist/jquery.js"></script>
-    <script src="/vendor/bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="/node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/js/common.js"></script>
 </head>
 <body>
 <header>
@@ -19,5 +20,7 @@
 <footer>
     <%-partial('partials/footer')%>
 </footer>
+
+<%-partial('partials/_messages')%>
 </body>
 </html>

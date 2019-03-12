@@ -1,10 +1,16 @@
-var crypto = require('crypto');
+let crypto = require('crypto');
+var config = require('../config');
 
-var mongoose = require('../libs/mongoose'),
+let mongoose = require('../libs/mongoose'),
     Schema = mongoose.Schema;
 
-var schema = new Schema({
-   username: {
+let schema = new Schema({
+    email: {
+        type: String,
+        unique: true,
+        required: true
+    },
+    username: {
         type: String,
         unique: true,
         required: true
@@ -20,7 +26,14 @@ var schema = new Schema({
     created: {
         type: Date,
         default: Date.now
+    },
+    participateInRooms: {
+        type: Array,
+        'default': [config.get('chat:defaultRoom')]
     }
+    ,
+  //  default :[{participateInRooms : [config.get('chat:defaultRoom')]}]
+
 });
 
 schema.methods.encryptPassword = function(password) {
