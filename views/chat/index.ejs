@@ -25,7 +25,9 @@
                         <li class="nav-item" data-author="<%= room.author %>">
                             <a class="room-pill nav-link" href="#" data-room="<%= room.name %>"  data-toggle="tab">
                                 <%= room.name %>
+                                <span class="unread-count badge badge-primary badge-pill" data-unread-count="0">0</span>
                             </a>
+
                         </li>
                     <% }); %>
                 </ul>
@@ -68,4 +70,4 @@
     </div>
 </div>
 
-<%- partial('_room_modal', {usersList: usersList})%>
+<%- partial('_create_room_modal', {usersList: usersList})%>

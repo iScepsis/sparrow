@@ -37,11 +37,14 @@ module.exports = function(server) {
                 next(new Error("Can't create message: " + err));
             });
 
-            io.emit('chat message',
-                '<div class="single-msg-wrap" data-author="' + socket.username + '">' +
+            io.emit('chat message', {
+                from: socket.username,
+                room: socket.currentRoom,
+                msgText: msg,
+                msgHtml: '<div class="single-msg-wrap" data-author="' + socket.username + '">' +
                     '<b class="msg-username">' + socket.username + '</b>: <span class="msg-content">' + msg + '</span>' +
-                '</div>'
-            );
+                    '</div>'
+            });
         });
 
         socket.on('set current room',  function(roomName){

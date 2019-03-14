@@ -1,5 +1,6 @@
 var typingUsers = [];
 var typingLength = 0;
+var currentRoom = '';
 var roomCreateValidator = {
     rules: {
         roomName: {
@@ -38,7 +39,9 @@ $(function () {
      */
     $('.room-pill').on('click', function(){
         $('.msg-list').html('');
-        socket.emit('set current room', $(this).data('room'));
+        currentRoom = $(this).data('room');
+        socket.emit('set current room', currentRoom);
+        $(this).find('.unread-count').attr('data-unread-count', 0).text('0');
         $.ajax({
             url: 'chat/load-messages',
             method: 'post',
@@ -84,8 +87,15 @@ $(function () {
         return false;
     });
 
+    //Получение сообщения в броадкасте
     socket.on('chat message', function(msg){
-        $('.msg-list').append(msg);
+        if (msg.room == currentRoom) {
+            $('.msg-list').append(msg.msgHtml);
+        } else {
+            var unreadCnt = $('[data-room="' + msg.room + '"]').find('.unread-count');
+            unreadCnt.attr('data-unread-count', parseInt(unreadCnt.attr('data-unread-count')) + 1);
+            unreadCnt.text(unreadCnt.attr('data-unread-count'));
+        }
     });
 
     socket.on('typing', function(username) {
